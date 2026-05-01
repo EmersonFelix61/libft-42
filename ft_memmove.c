@@ -1,33 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emda-sil <emda-sil@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/30 12:01:06 by emda-sil          #+#    #+#             */
-/*   Updated: 2026/04/30 12:24:07 by emda-sil         ###   ########.fr       */
+/*   Created: 2026/05/01 12:44:39 by emda-sil          #+#    #+#             */
+/*   Updated: 2026/05/01 13:40:22 by emda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	size_t		i;
-	size_t		len;
-	char		*dest;
+	const unsigned char	*casts;
+	unsigned char		*castd;
+	size_t				i;
 
-	i = 0;
-	len = ft_strlen(s);
-	dest = (char *)malloc(sizeof(char) * (len + 1));
-	if (! dest)
+	if (!dest && !src)
 		return (NULL);
-	while (s[i])
+	castd = (unsigned char *)dest;
+	casts = (unsigned char *)src;
+	if (castd < casts)
 	{
-		dest[i] = s[i];
-		i++;
+		i = 0;
+		while (i < n)
+		{
+			castd[i] = casts[i];
+			i++;
+		}
+		return (dest);
 	}
-	dest[i] = '\0';
+	i = n;
+	while (i > 0)
+	{
+		i--;
+		castd[i] = casts[i];
+	}
 	return (dest);
 }
