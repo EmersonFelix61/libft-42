@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emda-sil <emda-sil@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/30 11:02:57 by emda-sil          #+#    #+#             */
-/*   Updated: 2026/04/30 11:07:32 by emda-sil         ###   ########.fr       */
+/*   Created: 2026/05/08 11:42:29 by emda-sil          #+#    #+#             */
+/*   Updated: 2026/05/13 10:54:34 by emda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t n)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	size_t	i;
-	size_t	len;
+	int	i;
 
-	if (!*little)
-		return ((char *)big);
-	if (!*big)
-		return (NULL);
+	if (!s || !f)
+		return ;
 	i = 0;
-	len = ft_strlen(little);
-	while ((len + i <= n) && big[i])
+	while (s[i])
 	{
-		if (ft_strncmp(&big[i], little, len) == 0)
-			return ((char *) &big[i]);
+		f(i, &s[i]);
 		i++;
 	}
-	return (NULL);
 }

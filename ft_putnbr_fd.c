@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emda-sil <emda-sil@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/30 11:02:57 by emda-sil          #+#    #+#             */
-/*   Updated: 2026/04/30 11:07:32 by emda-sil         ###   ########.fr       */
+/*   Created: 2026/05/08 12:40:41 by emda-sil          #+#    #+#             */
+/*   Updated: 2026/05/08 12:48:26 by emda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t n)
+void	ft_putnbr_fd(int n, int fd)
 {
-	size_t	i;
-	size_t	len;
+	long int	nb;
+	char		nb1;
 
-	if (!*little)
-		return ((char *)big);
-	if (!*big)
-		return (NULL);
-	i = 0;
-	len = ft_strlen(little);
-	while ((len + i <= n) && big[i])
+	nb = n;
+	if (nb < 0)
 	{
-		if (ft_strncmp(&big[i], little, len) == 0)
-			return ((char *) &big[i]);
-		i++;
+		write(fd, "-", 1);
+		nb *= -1;
 	}
-	return (NULL);
+	if (nb > 9)
+		ft_putnbr_fd(nb / 10, fd);
+	nb1 = (nb % 10) + '0';
+	write(fd, &nb1, 1);
 }
